@@ -11,7 +11,7 @@ public class ConfigFileReader {
 
     public ConfigFileReader() {
         BufferedReader reader;
-        String propertyFilePath = "src/application.properties";
+        String propertyFilePath = "src/test/resources/application.properties";
         try {
             reader = new BufferedReader(new FileReader(propertyFilePath));
             properties = new Properties();
@@ -31,18 +31,6 @@ public class ConfigFileReader {
         String url = properties.getProperty("test.application.url");
         if(url != null) return url;
         else throw new RuntimeException("url not specified in the Configuration.properties file.");
-    }
-
-    public String getYandexBrowserBinaryPath() {
-        String binaryPath = properties.getProperty("yandex.browser.path");
-        if(binaryPath != null) return binaryPath;
-        else throw new RuntimeException("binaryPath not specified in the Configuration.properties file.");
-    }
-
-    public String getTestUserName() {
-        String name = properties.getProperty("test.user.name");
-        if(name != null) return name;
-        else throw new RuntimeException("name not specified in the Configuration.properties file.");
     }
 
     public String getTestUserEmail() {

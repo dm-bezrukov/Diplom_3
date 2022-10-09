@@ -5,7 +5,10 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import ru.practicum.constants.BrowserEnum;
 import ru.practicum.page_objects.AccountPage;
 import ru.practicum.page_objects.LoginPage;
 import ru.practicum.page_objects.MainPage;
@@ -14,14 +17,29 @@ import ru.practicum.utils.DriverInitializer;
 
 import java.time.Duration;
 
+@RunWith(Parameterized.class)
 public class GoToConstructorTest {
-    WebDriver driver = DriverInitializer.getChromeDriver();
+    WebDriver driver;
     MainPage mainPage;
     LoginPage loginPage;
     AccountPage accountPage;
+    BrowserEnum browserEnum;
 
+    public GoToConstructorTest(BrowserEnum browserEnum) {
+        this.browserEnum = browserEnum;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getData() {
+        return new Object[][]{
+                {BrowserEnum.CHROME},
+                {BrowserEnum.YANDEX}
+        };
+    }
     @Before
     public void init() {
+        driver = DriverInitializer.getDriver(browserEnum);
+
         mainPage = new MainPage(driver);
         loginPage = new LoginPage(driver);
         accountPage = new AccountPage(driver);
@@ -43,7 +61,7 @@ public class GoToConstructorTest {
         mainPage.clickAccountButton();
         accountPage.clickGoToConstructorButton();
 
-        boolean displayed = mainPage.getBurgerIngredientsSection().isDisplayed();
+        boolean displayed = mainPage.getBurgerConstructorHeader().isDisplayed();
         Assert.assertTrue("Конструктор не был открыт",displayed);
     }
 }

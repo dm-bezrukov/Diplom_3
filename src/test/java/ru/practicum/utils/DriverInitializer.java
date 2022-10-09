@@ -1,17 +1,24 @@
 package ru.practicum.utils;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import ru.practicum.constants.BrowserEnum;
 
 public class DriverInitializer {
+    public static WebDriver getDriver(BrowserEnum browser) {
+        switch (browser) {
+            case CHROME:
+                WebDriverManager.chromedriver().setup();
+                return new ChromeDriver();
 
-    public static ChromeDriver getChromeDriver() {
-        WebDriverManager.chromedriver().setup();
-        return new ChromeDriver();
-    }
+            case YANDEX:
+                System.setProperty("webdriver.chrome.driver",
+                        "src/test/resources/yandexdriver-22.9.1.1094-win/yandexdriver.exe");
+                return new ChromeDriver();
 
-    public static ChromeDriver getYandexDriver() {
-        WebDriverManager.chromedriver().driverVersion("104.0.5112.20").setup();
-        return new ChromeDriver(new ChromeOptions().setBinary(new ConfigFileReader().getYandexBrowserBinaryPath()));
+            default:
+                throw new EnumConstantNotPresentException(BrowserEnum.class, "BROWSER");
+        }
     }
 }

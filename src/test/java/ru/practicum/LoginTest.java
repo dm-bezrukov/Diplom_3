@@ -1,34 +1,49 @@
 package ru.practicum;
 
 import io.qameta.allure.junit4.DisplayName;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
+import ru.practicum.constants.BrowserEnum;
 import ru.practicum.page_objects.*;
 import ru.practicum.utils.ConfigFileReader;
 import ru.practicum.utils.DriverInitializer;
 
 import java.time.Duration;
 
+@RunWith(Parameterized.class)
 public class LoginTest {
-    WebDriver driver = DriverInitializer.getChromeDriver();
+    WebDriver driver;
     MainPage mainPage;
     LoginPage loginPage;
+    BrowserEnum browserEnum;
     ConfigFileReader configFileReader = new ConfigFileReader();
+
+    public LoginTest(BrowserEnum browserEnum) {
+        this.browserEnum = browserEnum;
+    }
+
+    @Parameterized.Parameters
+    public static Object[][] getData() {
+        return new Object[][]{
+                {BrowserEnum.CHROME},
+                {BrowserEnum.YANDEX}
+        };
+    }
 
     @Before
     public void init() {
+        this.driver = DriverInitializer.getDriver(browserEnum);
+
         driver.get(configFileReader.getApplicationUrl());
         this.mainPage = new MainPage(driver);
         this.loginPage = new LoginPage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
     }
-
     @After
-    public void shutdown() {
+    public void closeDriver() {
         driver.quit();
     }
 
