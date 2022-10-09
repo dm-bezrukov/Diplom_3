@@ -45,8 +45,8 @@ public class GoToAccountTest {
         mainPage = new MainPage(driver);
         accountPage = new AccountPage(driver);
         loginPage = new LoginPage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     @After
@@ -61,7 +61,7 @@ public class GoToAccountTest {
         loginPage.loginWithTestUser();
         mainPage.clickAccountButton();
 
-        boolean displayed = accountPage.getLogoutButton().isDisplayed();
+        boolean displayed = accountPage.getProfileButton().isDisplayed();
         Assert.assertTrue("Личный кабинет не был открыт", displayed);
     }
 }

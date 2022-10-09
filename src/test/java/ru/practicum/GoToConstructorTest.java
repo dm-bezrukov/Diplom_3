@@ -44,8 +44,8 @@ public class GoToConstructorTest {
         loginPage = new LoginPage(driver);
         accountPage = new AccountPage(driver);
         driver.get(new ConfigFileReader().getApplicationUrl());
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     @After

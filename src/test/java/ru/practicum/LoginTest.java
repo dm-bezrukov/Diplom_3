@@ -39,8 +39,8 @@ public class LoginTest {
         driver.get(configFileReader.getApplicationUrl());
         this.mainPage = new MainPage(driver);
         this.loginPage = new LoginPage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
     @After
     public void closeDriver() {
@@ -55,7 +55,7 @@ public class LoginTest {
         mainPage.clickAccountButton();
         AccountPage accountPage = new AccountPage(driver);
 
-        boolean displayed = accountPage.getLogoutButton().isDisplayed();
+        boolean displayed = accountPage.getProfileButton().isDisplayed();
         Assert.assertTrue("Вход в личный кабинет не был выполнен", displayed);
     }
 
@@ -67,7 +67,7 @@ public class LoginTest {
         mainPage.clickAccountButton();
         AccountPage accountPage = new AccountPage(driver);
 
-        boolean displayed = accountPage.getLogoutButton().isDisplayed();
+        boolean displayed = accountPage.getProfileButton().isDisplayed();
         Assert.assertTrue("Вход в личный кабинет не был выполнен", displayed);
     }
 
@@ -82,7 +82,7 @@ public class LoginTest {
         mainPage.clickAccountButton();
         AccountPage accountPage = new AccountPage(driver);
 
-        boolean displayed = accountPage.getLogoutButton().isDisplayed();
+        boolean displayed = accountPage.getProfileButton().isDisplayed();
         Assert.assertTrue("Вход в личный кабинет не был выполнен", displayed);
     }
 
@@ -97,7 +97,7 @@ public class LoginTest {
         mainPage.clickAccountButton();
         AccountPage accountPage = new AccountPage(driver);
 
-        boolean displayed = accountPage.getLogoutButton().isDisplayed();
+        boolean displayed = accountPage.getProfileButton().isDisplayed();
         Assert.assertTrue("Вход в личный кабинет не был выполнен", displayed);
     }
 }

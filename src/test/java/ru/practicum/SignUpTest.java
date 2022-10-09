@@ -35,8 +35,8 @@ public class SignUpTest {
         driver = DriverInitializer.getDriver(browserEnum);
         driver.get(new ConfigFileReader().getApplicationUrl());
         this.mainPage = new MainPage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
     }
 
     @Parameterized.Parameters

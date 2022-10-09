@@ -39,8 +39,8 @@ public class ConstructorTest {
 
         driver.get(configFileReader.getApplicationUrl());
         this.mainPage = new MainPage(driver);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
     @After
