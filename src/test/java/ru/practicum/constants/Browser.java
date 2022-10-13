@@ -1,5 +1,5 @@
 package ru.practicum.constants;
 
-public enum BrowserEnum {
+public enum Browser {
     YANDEX, CHROME
 }

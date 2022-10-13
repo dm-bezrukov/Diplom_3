@@ -9,7 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import ru.practicum.constants.BrowserEnum;
+import ru.practicum.constants.Browser;
 import ru.practicum.page_objects.LoginPage;
 import ru.practicum.page_objects.MainPage;
 import ru.practicum.page_objects.SignUpPage;
@@ -24,9 +24,9 @@ public class SignUpTest {
     MainPage mainPage;
     LoginPage loginPage;
     SignUpPage signUpPage;
-    BrowserEnum browserEnum;
+    Browser browserEnum;
 
-    public SignUpTest(BrowserEnum browserEnum) {
+    public SignUpTest(Browser browserEnum) {
         this.browserEnum = browserEnum;
     }
 
@@ -36,14 +36,14 @@ public class SignUpTest {
         driver.get(new ConfigFileReader().getApplicationUrl());
         this.mainPage = new MainPage(driver);
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {BrowserEnum.CHROME},
-                {BrowserEnum.YANDEX}
+                {Browser.CHROME},
+                {Browser.YANDEX}
         };
     }
 

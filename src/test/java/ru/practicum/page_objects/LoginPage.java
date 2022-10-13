@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import ru.practicum.utils.ConfigFileReader;
+import ru.practicum.pojos.SignInRequest;
 
 @Data
 public class LoginPage {
@@ -46,10 +46,9 @@ public class LoginPage {
         recoverPasswordButton.click();
     }
 
-    public void loginWithTestUser() {
-        ConfigFileReader configFileReader = new ConfigFileReader();
-        enterEmail(configFileReader.getTestUserEmail());
-        enterPassword(configFileReader.getTestUserPassword());
+    public void loginWithCredentials(SignInRequest signInRequest) {
+        enterEmail(signInRequest.getEmail());
+        enterPassword(signInRequest.getPassword());
         clickSignInButton();
     }
 }

@@ -1,6 +1,7 @@
 package ru.practicum;
 
 import io.qameta.allure.junit4.DisplayName;
+import io.restassured.RestAssured;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -8,12 +9,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
-import ru.practicum.constants.BrowserEnum;
+import ru.practicum.api_steps.UsersSteps;
+import ru.practicum.constants.Browser;
 import ru.practicum.page_objects.AccountPage;
 import ru.practicum.page_objects.LoginPage;
 import ru.practicum.page_objects.MainPage;
+import ru.practicum.pojos.SignInRequest;
+import ru.practicum.pojos.SuccessSignInSignUpResponse;
+import ru.practicum.pojos.UserRequest;
 import ru.practicum.utils.ConfigFileReader;
 import ru.practicum.utils.DriverInitializer;
+import ru.practicum.utils.UsersUtils;
 
 import java.time.Duration;
 
@@ -23,17 +29,17 @@ public class GoToConstructorTest {
     MainPage mainPage;
     LoginPage loginPage;
     AccountPage accountPage;
-    BrowserEnum browserEnum;
+    Browser browserEnum;
 
-    public GoToConstructorTest(BrowserEnum browserEnum) {
+    public GoToConstructorTest(Browser browserEnum) {
         this.browserEnum = browserEnum;
     }
 
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {BrowserEnum.CHROME},
-                {BrowserEnum.YANDEX}
+                {Browser.CHROME},
+                {Browser.YANDEX}
         };
     }
     @Before
@@ -45,7 +51,7 @@ public class GoToConstructorTest {
         accountPage = new AccountPage(driver);
         driver.get(new ConfigFileReader().getApplicationUrl());
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
     @After
@@ -56,12 +62,23 @@ public class GoToConstructorTest {
     @Test
     @DisplayName("Успешный переход в конструктор из аккаунта")
     public void goToConstructorFromAccountSuccess() {
+        UserRequest user = UsersUtils.getUniqueUser();
+        RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
+
+        SuccessSignInSignUpResponse signUpResponse = UsersSteps.createUniqueUser(user)
+                .then()
+                .statusCode(200)
+                .extract()
+                .as(SuccessSignInSignUpResponse.class);
+
         mainPage.clickAccountButton();
-        loginPage.loginWithTestUser();
+        loginPage.loginWithCredentials(new SignInRequest(user.getEmail(), user.getPassword()));
         mainPage.clickAccountButton();
         accountPage.clickGoToConstructorButton();
 
         boolean displayed = mainPage.getBurgerConstructorHeader().isDisplayed();
         Assert.assertTrue("Конструктор не был открыт",displayed);
+
+        UsersSteps.deleteUser(signUpResponse.getAccessToken());
     }
 }

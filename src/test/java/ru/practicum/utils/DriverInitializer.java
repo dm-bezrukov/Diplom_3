@@ -3,10 +3,10 @@ package ru.practicum.utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.practicum.constants.BrowserEnum;
+import ru.practicum.constants.Browser;
 
 public class DriverInitializer {
-    public static WebDriver getDriver(BrowserEnum browser) {
+    public static WebDriver getDriver(Browser browser) {
         switch (browser) {
             case CHROME:
                 WebDriverManager.chromedriver().setup();
@@ -18,7 +18,7 @@ public class DriverInitializer {
                 return new ChromeDriver();
 
             default:
-                throw new EnumConstantNotPresentException(BrowserEnum.class, "BROWSER");
+                throw new EnumConstantNotPresentException(Browser.class, "BROWSER");
         }
     }
 }

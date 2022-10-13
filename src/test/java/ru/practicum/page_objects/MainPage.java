@@ -15,11 +15,11 @@ public class MainPage {
     WebElement homeSignInButton;
     @FindBy(xpath = "//p[text()='Личный Кабинет']")
     WebElement homeAccountButton;
-    @FindBy(xpath = "//span[text()='Булки']")
+    @FindBy(xpath = "//span[text()='Булки']/parent::div")
     WebElement bunsSectionButton;
-    @FindBy(xpath = "//span[text()='Соусы']")
+    @FindBy(xpath = "//span[text()='Соусы']/parent::div")
     WebElement sousesSectionButton;
-    @FindBy(xpath = "//span[text()='Начинки']")
+    @FindBy(xpath = "//span[text()='Начинки']/parent::div")
     WebElement fillingsSectionButton;
     @FindBy(xpath = "//h2[text()='Соусы']")
     WebElement sousesSectionHeader;
