@@ -51,4 +51,7 @@ public class MainPage {
     public void clickOnFillingsSectionButton() {
         fillingsSectionButton.click();
     }
+    public boolean isSectionButtonSelected(WebElement sectionButton) {
+        return sectionButton.getAttribute("class").contains("tab_tab_type_current__2BEPc");
+    }
 }

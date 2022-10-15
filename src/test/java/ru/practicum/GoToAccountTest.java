@@ -66,11 +66,12 @@ public class GoToAccountTest {
         UserRequest user = UsersUtils.getUniqueUser();
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
 
-        SuccessSignInSignUpResponse signUpResponse = UsersSteps.createUniqueUser(user)
+        String accessToken = UsersSteps.createUniqueUser(user)
                 .then()
                 .statusCode(200)
                 .extract()
-                .as(SuccessSignInSignUpResponse.class);
+                .as(SuccessSignInSignUpResponse.class)
+                .getAccessToken();
 
         mainPage.clickAccountButton();
         loginPage.loginWithCredentials(new SignInRequest(user.getEmail(), user.getPassword()));
@@ -79,6 +80,6 @@ public class GoToAccountTest {
         boolean displayed = accountPage.getProfileButton().isDisplayed();
         Assert.assertTrue("Личный кабинет не был открыт", displayed);
 
-        UsersSteps.deleteUser(signUpResponse.getAccessToken());
+        UsersSteps.deleteUser(accessToken);
     }
 }

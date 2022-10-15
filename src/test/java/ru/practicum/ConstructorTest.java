@@ -54,24 +54,21 @@ public class ConstructorTest {
     public void clickOnBunsSectionButtonAutoScroll() {
         mainPage.clickOnFillingsSectionButton();
         mainPage.clickOnBunsSectionButton();
-        String attribute = mainPage.getBunsSectionButton().getAttribute("class");
-        Assert.assertEquals("Переход к разделу \"Булки\" не выполнен",
-                "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect", attribute);
+        boolean isSelected = mainPage.isSectionButtonSelected(mainPage.getBunsSectionButton());
+        Assert.assertTrue("Переход к разделу \"Булки\" не выполнен", isSelected);
     }
 
     @Test
     public void clickOnSousesSectionButtonAutoScroll() {
         mainPage.clickOnSousesSectionButton();
-        String attribute = mainPage.getSousesSectionButton().getAttribute("class");
-        Assert.assertEquals("Переход к разделу \"Соусы\" не выполнен",
-                "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect", attribute);
+        boolean isSelected = mainPage.isSectionButtonSelected(mainPage.getSousesSectionButton());
+        Assert.assertTrue("Переход к разделу \"Соусы\" не выполнен", isSelected);
     }
 
     @Test
     public void clickOnFillingsSectionButtonAutoScroll() {
         mainPage.clickOnFillingsSectionButton();
-        String attribute = mainPage.getFillingsSectionButton().getAttribute("class");
-        Assert.assertEquals("Переход к разделу \"Начинки\" не выполнен",
-                "tab_tab__1SPyG tab_tab_type_current__2BEPc pt-4 pr-10 pb-4 pl-10 noselect", attribute);
+        boolean isSelected = mainPage.isSectionButtonSelected(mainPage.getFillingsSectionButton());
+        Assert.assertTrue("Переход к разделу \"Начинки\" не выполнен", isSelected);
     }
 }

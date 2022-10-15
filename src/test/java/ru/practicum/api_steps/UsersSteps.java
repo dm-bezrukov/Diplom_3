@@ -5,6 +5,7 @@ import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import ru.practicum.pojos.SignInRequest;
 import ru.practicum.pojos.UserRequest;
 
 import static io.restassured.RestAssured.given;
@@ -36,5 +37,14 @@ public class UsersSteps {
                 .header("Authorization", accessToken)
                 .when()
                 .delete(BASE_USER_URL);
+    }
+
+    @Step("Выполняем авторизацию с помощью тела запроса на авторизацию")
+    public static Response signInWithSignInRequest(SignInRequest signInRequest) {
+        return given()
+                .spec(REQUEST_SPECIFICATION)
+                .body(signInRequest)
+                .when()
+                .post(BASE_LOGIN_URL);
     }
 }
